@@ -49,36 +49,37 @@ local function Describe(inst, context)
                 count = inst.components.stackable.stacksize or 1
             end
         end
-        local total_nutrients = { 0, 0, 0 }
-        for i = 1, 3 do
-            total_nutrients[i] = math.floor(count * (add_nutrients[i] or 0) * 1.3)
+        if add_nutrients ~= nil then
+            local total_nutrients = { 0, 0, 0 }
+            for i = 1, 3 do
+                total_nutrients[i] = math.floor(count * (add_nutrients[i] or 0) * 1.3)
+            end
+            if stackable then
+                descriptors[#descriptors + 1] = {
+                    priority = 0,
+                    name = "refuel",
+                    description = string.format(
+                        tr.held_add_nutrients_stack, count, held_item.prefab, unpack(total_nutrients)
+                    )
+                }
+            elseif useable then
+                descriptors[#descriptors + 1] = {
+                    priority = 0,
+                    name = "refuel",
+                    description = string.format(
+                        tr.held_add_nutrients_use, held_item.prefab, count, unpack(total_nutrients)
+                    )
+                }
+            else
+                descriptors[#descriptors + 1] = {
+                    priority = 0,
+                    name = "refuel",
+                    description = string.format(
+                        tr.held_add_nutrients, held_item.prefab, unpack(total_nutrients)
+                    )
+                }
+            end
         end
-        if stackable then
-            descriptors[#descriptors + 1] = {
-                priority = 0,
-                name = "refuel",
-                description = string.format(
-                    tr.held_add_nutrients_stack, count, held_item.prefab, unpack(total_nutrients)
-                )
-            }
-        elseif useable then
-            descriptors[#descriptors + 1] = {
-                priority = 0,
-                name = "refuel",
-                description = string.format(
-                    tr.held_add_nutrients_use, held_item.prefab, count, unpack(total_nutrients)
-                )
-            }
-        else
-            descriptors[#descriptors + 1] = {
-                priority = 0,
-                name = "refuel",
-                description = string.format(
-                    tr.held_add_nutrients, held_item.prefab, unpack(total_nutrients)
-                )
-            }
-        end
-
     end
     return unpack(descriptors)
 
