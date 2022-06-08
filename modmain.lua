@@ -50,6 +50,7 @@ if KnownModIndex:IsModEnabled("workshop-2189004162") then
     for index, value in pairs(prefabs) do SetPrefabDescriptor(value) end
 
     print("Add components descriptors")
+    SetComponentsDescriptor("perennialcrop")
     SetComponentsDescriptor("perennialcrop2")
     SetComponentsDescriptor("fishhomingbait")
 

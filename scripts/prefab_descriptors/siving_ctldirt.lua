@@ -44,9 +44,9 @@ local function Describe(inst, context)
                 useable = true
                 count = held_item.components.finiteuses:GetUses()
             end
-            if inst.components.stackable then
+            if held_item.components.stackable then
                 stackable = true
-                count = inst.components.stackable.stacksize or 1
+                count = held_item.components.stackable:StackSize()
             end
         end
         if add_nutrients ~= nil then
