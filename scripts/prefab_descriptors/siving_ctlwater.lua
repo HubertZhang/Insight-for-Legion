@@ -16,7 +16,10 @@ local ctlFuledItems = {
     cutted_rosebush = { moisture = nil, nutrients = { 5, 5, 8 } },
     cutted_lilybush = { moisture = nil, nutrients = { 5, 5, 8 } },
     cutted_orchidbush = { moisture = nil, nutrients = { 5, 5, 8 } },
-    sachet = { moisture = nil, nutrients = { 40, 40, 64 } },
+    sachet = { moisture = nil, nutrients = { 8, 8, 8 } },
+    rosorns = { moisture = nil, nutrients = { 12, 12, 48 } },
+    lileaves = { moisture = nil, nutrients = { 12, 48, 12 } },
+    orchitwigs = { moisture = nil, nutrients = { 48, 12, 12 } },
 }
 
 local function Describe(inst, context)

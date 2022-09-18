@@ -6,6 +6,13 @@ local ctlFuledItems = {
     oceanfish_medium_8_inv = { moisture = 200, nutrients = { 16, nil, nil } }, --冰鲷鱼
     watermelonicle = { moisture = 200, nutrients = { 8, 8, 16 } },
     icecream = { moisture = 200, nutrients = { 24, 24, 24 } },
+    cutted_rosebush = { moisture = nil, nutrients = { 5, 5, 8 } },
+    cutted_lilybush = { moisture = nil, nutrients = { 5, 5, 8 } },
+    cutted_orchidbush = { moisture = nil, nutrients = { 5, 5, 8 } },
+    sachet = { moisture = nil, nutrients = { 8, 8, 8 } },
+    rosorns = { moisture = nil, nutrients = { 12, 12, 48 } },
+    lileaves = { moisture = nil, nutrients = { 12, 48, 12 } },
+    orchitwigs = { moisture = nil, nutrients = { 48, 12, 12 } },
 }
 
 local tr = {
