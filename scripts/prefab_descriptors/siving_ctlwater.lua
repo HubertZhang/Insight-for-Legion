@@ -34,7 +34,7 @@ local function Describe(inst, context)
     local held_item = context.player.components.inventory and
         context.player.components.inventory:GetActiveItem()
     if held_item then
-        if ctlFuledItems[held_item.prefab] ~= nil then
+        if ctlFuledItems[held_item.prefab] ~= nil and ctlFuledItems[held_item.prefab].moisture then
             descriptors[#descriptors + 1] = { priority = 0, name = "refuel", description = string.format(
                 tr.held_add_moisture_stack,
                 1, held_item.prefab,
