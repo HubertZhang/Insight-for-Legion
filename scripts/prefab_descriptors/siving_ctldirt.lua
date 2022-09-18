@@ -43,20 +43,22 @@ local function Describe(inst, context)
         local count = 0
         if ctlFuledItems[held_item.prefab] and ctlFuledItems[held_item.prefab].nutrients then
             add_nutrients = ctlFuledItems[held_item.prefab].nutrients
-            count = 1
         elseif held_item.components.fertilizer and held_item.components.fertilizer.nutrients then
             add_nutrients = held_item.components.fertilizer.nutrients
-
-            if held_item.components.finiteuses then
-                useable = true
-                count = held_item.components.finiteuses:GetUses()
-            end
+        elseif held_item.siv_ctl_fueled then
+            add_nutrients = held_item.siv_ctl_fueled.nutrients
+        end
+        if add_nutrients ~= nil then
             if held_item.components.stackable then
                 stackable = true
                 count = held_item.components.stackable:StackSize()
+            elseif held_item.components.finiteuses then
+                useable = true
+                count = held_item.components.finiteuses:GetUses()
+            else
+                count = 1
             end
-        end
-        if add_nutrients ~= nil then
+
             local total_nutrients = { 0, 0, 0 }
             for i = 1, 3 do
                 total_nutrients[i] = math.floor(count * (add_nutrients[i] or 0) * 1.3)

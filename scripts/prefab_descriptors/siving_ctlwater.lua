@@ -1,10 +1,3 @@
-local tr = {
-    description = "<color=#95BFF2>水量</color>:<color=#95BFF2>%d</color> / <color=#95BFF2>1600</color>",
-    can_add_moisture = "可使用 %s 填充水量",
-    held_add_moisture_stack = "手中 %d 个 <color=WET><prefab=%s></color> 可补充 %d 水量",
-    held_add_moisture = "手中 <color=WET><prefab=%s></color> 可补充 %d 水量",
-}
-
 local ctlFuledItems = {
     ice = { moisture = 100, nutrients = nil },
     icehat = { moisture = 1000, nutrients = { 8, nil, 8 } },
@@ -22,6 +15,13 @@ local ctlFuledItems = {
     orchitwigs = { moisture = nil, nutrients = { 48, 12, 12 } },
 }
 
+local tr = {
+    description = "<color=#95BFF2>水量</color>:<color=#95BFF2>%d</color> / <color=#95BFF2>1600</color>",
+    held_add_moisture_stack = "手中 %d 个 <color=WET><prefab=%s></color> 可补充 %d 水量",
+    held_add_moisture_use = "手中 <color=WET><prefab=%s></color> %d次 使用 可补充 %d 水量",
+    held_add_moisture = "手中 <color=WET><prefab=%s></color> 可补充 %d 水量",
+}
+
 local function Describe(inst, context)
     local botanycontroller = inst.components.botanycontroller or {}
     local moisture = botanycontroller.moisture or 0
@@ -37,30 +37,61 @@ local function Describe(inst, context)
     local held_item = context.player.components.inventory and
         context.player.components.inventory:GetActiveItem()
     if held_item then
-        if ctlFuledItems[held_item.prefab] ~= nil and ctlFuledItems[held_item.prefab].moisture then
-            descriptors[#descriptors + 1] = { priority = 0, name = "refuel", description = string.format(
-                tr.held_add_moisture_stack,
-                1, held_item.prefab,
-                ctlFuledItems[held_item.prefab].moisture) }
+        local add_moisture = nil
+        local stackable = false
+        local useable = false
+        local count = 0
+        if ctlFuledItems[held_item.prefab] and ctlFuledItems[held_item.prefab].moisture then
+            add_moisture = ctlFuledItems[held_item.prefab].moisture
         elseif held_item.components.wateryprotection then
             local waterypro = held_item.components.wateryprotection
-            local value_m = nil
-            if waterypro ~= nil then
-                if waterypro.addwetness == nil or waterypro.addwetness == 0 then
-                    value_m = 20
-                else
-                    value_m = waterypro.addwetness
-                end
-                if held_item.components.finiteuses ~= nil then
-                    value_m = value_m * held_item.components.finiteuses:GetUses() --普通水壶是+1000
-                else
-                    value_m = value_m * 10
-                end
+            if waterypro.addwetness == nil or waterypro.addwetness == 0 then
+                add_moisture = 20
+            else
+                add_moisture = waterypro.addwetness
             end
-            descriptors[#descriptors + 1] = { priority = 0, name = "refuel", description = string.format(
-                tr.held_add_moisture,
-                held_item.prefab,
-                value_m) }
+            if held_item.components.finiteuses == nil then
+                add_moisture = add_moisture * 10
+            end
+        elseif held_item.siv_ctl_fueled then
+            add_moisture = held_item.siv_ctl_fueled.moisture
+        end
+        if add_moisture ~= nil then
+            if held_item.components.stackable then
+                stackable = true
+                count = held_item.components.stackable:StackSize()
+            elseif held_item.components.finiteuses then
+                useable = true
+                count = held_item.components.finiteuses:GetUses()
+            else
+                count = 1
+            end
+            add_moisture = add_moisture * count
+            if stackable then
+                descriptors[#descriptors + 1] = {
+                    priority = 0,
+                    name = "refuel",
+                    description = string.format(
+                        tr.held_add_moisture_stack, count, held_item.prefab, add_moisture
+                    )
+                }
+            elseif useable then
+                descriptors[#descriptors + 1] = {
+                    priority = 0,
+                    name = "refuel",
+                    description = string.format(
+                        tr.held_add_moisture_use, held_item.prefab, count, add_moisture
+                    )
+                }
+            else
+                descriptors[#descriptors + 1] = {
+                    priority = 0,
+                    name = "refuel",
+                    description = string.format(
+                        tr.held_add_moisture, held_item.prefab, add_moisture
+                    )
+                }
+            end
         end
     end
     return unpack(descriptors)
