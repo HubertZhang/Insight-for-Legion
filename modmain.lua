@@ -44,8 +44,6 @@ local function AddDescriptors()
 
     print("[Insight-Legion]: Add prefab descriptors")
     local prefabs = {
-        "siving_ctlwater",
-        "siving_ctldirt",
         "siving_turn",
         "siving_thetree",
 
@@ -59,6 +57,7 @@ local function AddDescriptors()
     SetComponentsDescriptor("perennialcrop")
     SetComponentsDescriptor("perennialcrop2")
     SetComponentsDescriptor("fishhomingbait")
+    SetComponentsDescriptor("botanycontroller")
 
     rawset(_G.Insight.prefab_descriptors, "icire_rock", _G.Insight.prefab_descriptors["heatrock"])
 end

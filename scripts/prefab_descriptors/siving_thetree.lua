@@ -11,7 +11,7 @@ local function Describe(inst, context)
             name = "insight_ranged",
             priority = 0,
             description = tr.range_description,
-            range = 20,
+            range = 25,
             color = tr.color,
             attach_player = false
         }
