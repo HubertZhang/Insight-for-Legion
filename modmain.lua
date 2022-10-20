@@ -53,6 +53,9 @@ local function AddDescriptors()
     }
     for index, value in pairs(prefabs) do SetPrefabDescriptor(value) end
 
+    SetPrefabDescriptor("siving_foenix", "siving_foenix")
+    SetPrefabDescriptor("siving_moenix", "siving_foenix")
+
     print("[Insight-Legion]: Add components descriptors")
     SetComponentsDescriptor("perennialcrop")
     SetComponentsDescriptor("perennialcrop2")
