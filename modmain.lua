@@ -51,7 +51,8 @@ local function AddDescriptors()
 
         "tourmalinecore",
         "moondungeon",
-        "web_hump"
+        "web_hump",
+        "monstrain_wizen",
     }
     for index, value in pairs(prefabs) do SetPrefabDescriptor(value) end
 
