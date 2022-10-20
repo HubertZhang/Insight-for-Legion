@@ -47,6 +47,8 @@ local function AddDescriptors()
         "siving_turn",
         "siving_thetree",
 
+        "siving_boss_flower",
+
         "tourmalinecore",
         "moondungeon",
         "web_hump"
