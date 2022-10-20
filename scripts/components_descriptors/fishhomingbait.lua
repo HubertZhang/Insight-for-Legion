@@ -6,7 +6,7 @@ local tr = {
     normal_sep = " ",
 }
 
-local function GetPrey(self)
+local function GetPreys(self)
     local preys = { normal = nil, special = nil, allweight = nil }
     local chance_lit = 1
     local chance_low = 3
@@ -140,6 +140,11 @@ local function GetPrey(self)
             meat = nil, veggie = nil, monster = 0,
             evil = 0.09
         },
+        cookiecutter = { --饼干切割机
+            hardy = 0, pasty = nil, dusty = nil,
+            meat = nil, veggie = 0, monster = 0,
+            salty = 0.09
+        }
     }
 
     if TheWorld.state.isspring then
@@ -223,15 +228,17 @@ local function Describe(inst, context)
     else
         periodtime = 6
     end
-    descriptions[#descriptions + 1] = { name = "fish_prey", priority = 2, description = string.format(tr.times, periodtime, inst.times) }
+    descriptions[#descriptions + 1] = { name = "fish_prey", priority = 2,
+        description = string.format(tr.times, periodtime, inst.times) }
 
     -- spawn possibilities
-    local preys = inst.preys or GetPrey(inst)
+    local preys = inst.preys or GetPreys(inst)
     if preys then
         if preys.special then
             local possibility = {}
             for key, value in pairs(preys.special) do
-                possibility[#possibility + 1] = string.format("<prefab=%s><color=NATURE><sub>%d%%</sub></color>", key, math.floor(value * 100))
+                possibility[#possibility + 1] = string.format("<prefab=%s><color=NATURE><sub>%d%%</sub></color>", key,
+                    math.floor(value * 100))
             end
 
             descriptions[#descriptions + 1] = {
@@ -244,7 +251,8 @@ local function Describe(inst, context)
             local lines = {}
             local possibility = {}
             for key, value in pairs(preys.normal) do
-                possibility[#possibility + 1] = string.format("<prefab=%s><color=WET><sub>%d%%</sub></color>", key, math.floor((value.max - value.min) / preys.allweight * 100))
+                possibility[#possibility + 1] = string.format("<prefab=%s><color=WET><sub>%d%%</sub></color>", key,
+                    math.floor((value.max - value.min) / preys.allweight * 100))
                 if #possibility == 3 then
                     lines[#lines + 1] = table.concat(possibility, tr.normal_sep)
                     possibility = {}
