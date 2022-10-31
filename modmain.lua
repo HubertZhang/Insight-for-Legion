@@ -59,6 +59,9 @@ local function AddDescriptors()
     SetPrefabDescriptor("siving_foenix", "siving_foenix")
     SetPrefabDescriptor("siving_moenix", "siving_foenix")
 
+    SetPrefabDescriptor("siving_mask", "siving_mask")
+    SetPrefabDescriptor("siving_mask_gold", "siving_mask")
+
     print("[Insight-Legion]: Add components descriptors")
     SetComponentsDescriptor("perennialcrop")
     SetComponentsDescriptor("perennialcrop2")
