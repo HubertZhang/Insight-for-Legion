@@ -73,11 +73,11 @@ end
 
 AddPrefabPostInit("siving_thetree", function(inst)
     print("[Insight-Legion]: Add range indicator for siving tree")
-    inst.range_indicator = SpawnPrefab("insight_range_indicator")
-    inst.range_indicator:Attach(inst)
-    inst.range_indicator:SetRadius(25 / 4)
-    inst.range_indicator:SetColour({ 0x0F / 256, 0xB4 / 256, 0x84 / 256, 1 })
-    inst.range_indicator:SetVisible(true)
+    inst.drink_indicator = SpawnPrefab("insight_range_indicator")
+    inst.drink_indicator:Attach(inst)
+    inst.drink_indicator:SetRadius(25 / 4)
+    inst.drink_indicator:SetColour({ 0x0F / 256, 0xB4 / 256, 0x84 / 256, 1 })
+    inst.drink_indicator:SetVisible(true)
 end)
 
 AddSimPostInit(AddDescriptors)
