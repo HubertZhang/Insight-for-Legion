@@ -1,20 +1,28 @@
-local tr = {
-    paused = "暂停生长",
-    next_stage = "%s后进入下一阶段",
+local L = require("insight_plugin_lang")
 
-    pollinated = "已授粉 %d 次",
-    infested = "被骚扰 %d 次",
+local tr = L.F {
+    base = {
+        pollinated = "<color=LIGHT_PINK>授粉%d次</color>",
+        infested = "<color=#dd5555>侵害%d次</color>",
+    },
+    en = {
+        pollinated = "<color=LIGHT_PINK>Pollinated %d time(s)</color>",
+        infested = "<color=#dd5555>Infested %d time(s)</color>",
+    }
 }
 
 local function Describe(inst, context)
+    local tr = L.T(tr, context)
     local descriptions = {}
     if inst.timedata then
         if inst.timedata.paused or inst.timedata.mult == nil then
-            descriptions[#descriptions + 1] = { name = "grow_time", priority = 0, description = tr.paused }
+            descriptions[#descriptions + 1] = { name = "grow_time", priority = 0,
+                description = context.lstr.growable.paused }
         elseif inst.timedata.start and inst.timedata.all then
             local alltime = inst.timedata.all * inst.timedata.mult
             local pass = GetTime() - inst.timedata.start
-            local description = string.format(tr.next_stage, context.time:SimpleProcess(alltime - pass))
+            local description = string.format(context.lstr.growable.next_stage,
+                context.time:SimpleProcess(alltime - pass))
             descriptions[#descriptions + 1] = { name = "grow_time", priority = 0, description = description }
         end
     end

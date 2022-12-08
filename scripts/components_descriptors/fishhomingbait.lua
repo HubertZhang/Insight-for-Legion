@@ -1,9 +1,19 @@
-local tr = {
-    times = "每%d秒召唤一条鱼，可召唤%d条鱼",
-    special_prefix = "<color=NATURE>特殊鱼种</color>: ",
-    special_sep = " ",
-    normal_prefix = "<color=WET>普通鱼种</color>: ",
-    normal_sep = " ",
+local L = require("insight_plugin_lang")
+
+local tr = L.F {
+    base = {
+        special_sep = " ",
+        normal_sep = " ",
+
+        times = "每%d秒召唤一条鱼，可召唤%d条鱼",
+        special_prefix = "<color=NATURE>特殊鱼种</color>: ",
+        normal_prefix = "<color=WET>普通鱼种</color>: ",
+    },
+    en = {
+        times = "Attracts 1 fish every %d seconds, can attract %d fish",
+        pecial_prefix = "<color=NATURE>Special Fish</color>: ",
+        normal_prefix = "<color=WET>Normal Fish</color>: ",
+    }
 }
 
 local function GetPreys(self)
@@ -218,6 +228,7 @@ local function GetPreys(self)
 end
 
 local function Describe(inst, context)
+    local tr = L.T(tr, context)
     local descriptions = {}
     -- period and count
     local periodtime = 6
