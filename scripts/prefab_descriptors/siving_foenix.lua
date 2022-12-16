@@ -25,7 +25,7 @@ local function Describe(inst, context)
         return {
             name = "absorption",
             priority = 0,
-            description = string.format(tr.description + context.lstr.absorption, inst.sign_l_treehalo,
+            description = string.format(tr.description .. context.lstr.absorption, inst.sign_l_treehalo,
                 math.floor(left * 100)),
         }
     end
