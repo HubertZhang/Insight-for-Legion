@@ -6,7 +6,7 @@ local tr = L.F {
         description_2 = " / <color=HEALTH>%d</color>"
     },
     en = {
-        description_1 = "Health Stored: <color=HEALTH>%d</color>",
+        description_1 = "HP Stored: <color=HEALTH>%d</color>",
         description_2 = " / <color=HEALTH>%d</color>"
     }
 }
