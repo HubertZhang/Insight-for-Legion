@@ -67,8 +67,6 @@ local function AddDescriptors()
     SetComponentsDescriptor("perennialcrop2")
     SetComponentsDescriptor("fishhomingbait")
     SetComponentsDescriptor("botanycontroller")
-
-    rawset(_G.Insight.prefab_descriptors, "icire_rock", _G.Insight.prefab_descriptors["heatrock"])
 end
 
 AddPrefabPostInit("siving_thetree", function(inst)
