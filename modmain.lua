@@ -53,8 +53,13 @@ local function AddDescriptors()
         "moondungeon",
         "web_hump",
         "monstrain_wizen",
+
+        "hiddenmoonlight",
     }
     for index, value in pairs(prefabs) do SetPrefabDescriptor(value) end
+
+    SetPrefabDescriptor("revolvedmoonlight", "revolvedmoonlight")
+    SetPrefabDescriptor("revolvedmoonlight_pro", "revolvedmoonlight")
 
     SetPrefabDescriptor("siving_foenix", "siving_foenix")
     SetPrefabDescriptor("siving_moenix", "siving_foenix")
