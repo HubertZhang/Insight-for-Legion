@@ -68,14 +68,7 @@ end
 
 local function Describe(botanycontroller, context)
     local tr = L.T(tr, context)
-    local descriptors = { {
-        name = "insight_ranged",
-        priority = 0,
-        description = nil,
-        range = 20,
-        color = "#9BD554",
-        attach_player = false
-    } }
+    local descriptors = {}
     local controller_type = botanycontroller.type or 0
     local nutrients = botanycontroller.nutrients or {}
     local moisture = botanycontroller.moisture or 0
@@ -89,7 +82,6 @@ local function Describe(botanycontroller, context)
         parts[#parts + 1] = string.format(context.lstr.fertilizer.nutrient_value .. tr.nutrients_max_suffix,
             nutrients[1], nutrients[2], nutrients[3],
             botanycontroller.nutrient_max)
-
     end
     if can_control_moisture then
         parts[#parts + 1] = string.format(context.lstr.farmsoildrinker.soil_only .. tr.moisture_max_suffix,
@@ -182,13 +174,10 @@ local function Describe(botanycontroller, context)
             local tempPrefix = ""
             if stackable then
                 tempPrefix = string.format(tr.held_add_moisture_stack, count, held_item.prefab)
-
             elseif useable then
                 tempPrefix = string.format(tr.held_add_moisture_use, held_item.prefab, count, total_moisture)
-
             else
                 tempPrefix = string.format(tr.held_add_moisture, held_item.prefab, total_moisture)
-
             end
             descriptors[#descriptors + 1] = {
                 priority = 0,
@@ -198,7 +187,6 @@ local function Describe(botanycontroller, context)
         end
     end
     return unpack(descriptors)
-
 end
 
 return { Describe = Describe }
